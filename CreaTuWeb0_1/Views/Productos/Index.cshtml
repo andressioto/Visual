@@ -1,0 +1,77 @@
+﻿@model IEnumerable<CreaTuWeb0_1.Models.Producto>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="container main-container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Index</h2>
+
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
+            <div class="table-responsive">
+                <table class="table ">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Imagenes)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NombreProducto)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DescripcionProducto)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.PrecioProducto)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Fpublicado)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FUltimaModificacion)
+                        </th>
+                        <th>
+
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @if (item.Imagenes != null && item.Imagenes.Count > 0)
+                                {
+                                    <img src="~/Librerias/reduce.aspx?foto=@item.Imagenes.Where(i=>i.ImagenId==item.ImagenPrincipalId).First().carpeta/@item.Imagenes.Where(i => i.ImagenId == item.ImagenPrincipalId).First().nombre&ancho=50 " alt="@item.Imagenes.First().nombre" class="img-thumbnail" />
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NombreProducto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DescripcionProducto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PrecioProducto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Fpublicado)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FUltimaModificacion)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ProductoId }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.ProductoId }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ProductoId })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>

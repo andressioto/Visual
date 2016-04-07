@@ -1,0 +1,217 @@
+﻿@model IEnumerable<CreaTuWeb0_1.Models.MisEntidadesViewModel>
+@{
+    ViewBag.Title = "Inicio";
+}
+<div class="container main-container">
+    <div class="row">
+
+        <!-- Slider -->
+        <div class="col-lg-9 col-md-12">
+            <div class="slider">
+                <ul class="bxslider">
+                    <li>
+                        <a href="index.html">
+                            <img src="~/Content/images/banner_slider-3.jpg" alt="" />
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html">
+                            <img src="~/Content/images/banner_slider-2.jpg" alt="" />
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html">
+                            <img src="~/Content/images/banner_slider-1.jpg" alt="" />
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- End Slider -->
+        <!-- Product Selection, visible only on large desktop -->
+        <div class="col-lg-3 visible-lg">
+            <div class="row text-center">
+                <div class="col-lg-12 col-md-12 hero-feature">
+                 @if (Model.First().Productos.Count > 0)
+                 {
+                    foreach (var item in Model)
+                    {
+                        //declaro algunas variables que voy a necesitar para no trabajar con nombres largos
+                        var productos = item.Productos;
+                        var nombreiPrimeroi = "";
+                        var altPrimero = "";
+                        var carpetaIma = "";
+                        if (productos.Count > 0 && productos.First().Imagenes.Count > 0)
+                        {
+                            nombreiPrimeroi = productos.First().Imagenes.Where(i => i.ImagenId == productos.First().ImagenPrincipalId).First().nombre;
+                            altPrimero = productos.First().NombreProducto;
+                            carpetaIma =  productos.First().Imagenes.Where(i => i.ImagenId == productos.First().ImagenPrincipalId).First().carpeta;
+                        }
+
+
+                        <div class="thumbnail">
+                            <a href="detail.html" class="link-p first-p">
+
+                                <img src="/Librerias/reduce.aspx?foto=@carpetaIma/@nombreiPrimeroi&ancho=280 " alt="@productos.First().NombreProducto" class="img-thumbnail" />
+                            </a>
+                            <div class="caption prod-caption">
+                                <h4><a href="detail.html">@productos.First().NombreProducto</a></h4>
+                                <p>@productos.First().DescripcionProducto</p>
+                                <p>
+                                    <div class="btn-group">
+                                        <a href="#" class="btn btn-default">$ @productos.First().PrecioProducto</a>
+                                        <a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Comprar</a>
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                    }
+                 }
+
+
+                </div>
+            </div>
+        </div>
+        <!-- End Product Selection -->
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-12">
+
+            <!-- Categories -->
+            <div class="col-lg-12 col-md-12 col-sm-6">
+                <div class="no-padding">
+                    <span class="title">CATEGORIAS</span>
+                </div>
+
+                <div id="main_menu">
+                    <div class="list-group panel panel-cat">
+                        <a href="#sub1" class="list-group-item" data-toggle="collapse" data-parent="#main_menu">Cras justo odio <i class="fa fa-caret-down pull-right"></i></a>
+                        <div class="collapse list-group-sub" id="sub1">
+                            <a href="#SubMenu1" class="list-group-item" data-toggle="collapse" data-parent="#SubMenu1">Subitem 1 <i class="fa fa-caret-down"></i></a>
+                            <div class="collapse list-group-submenu" id="SubMenu1">
+                                <a href="#" class="list-group-item" data-parent="#SubMenu1">Subitem 1 a</a>
+                                <a href="#" class="list-group-item" data-parent="#SubMenu1">Subitem 2 b</a>
+                                <a href="#SubSubMenu1" class="list-group-item" data-toggle="collapse" data-parent="#SubSubMenu1">Subitem 3 c <i class="fa fa-caret-down"></i></a>
+                                <div class="collapse list-group-submenu list-group-submenu-1" id="SubSubMenu1">
+                                    <a href="#" class="list-group-item" data-parent="#SubSubMenu1">Sub sub item 1</a>
+                                    <a href="#" class="list-group-item" data-parent="#SubSubMenu1">Sub sub item 2</a>
+                                </div>
+                                <a href="#" class="list-group-item" data-parent="#SubMenu1">Subitem 4 d</a>
+                            </div>
+                            <a href="javascript:;" class="list-group-item">Subitem 2</a>
+                            <a href="javascript:;" class="list-group-item">Subitem 3</a>
+                        </div>
+                        <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                        <a href="#sub2" class="list-group-item" data-toggle="collapse" data-parent="#main_menu">Porta ac consectetur ac <i class="fa fa-caret-down pull-right"></i></a>
+                        <div class="collapse list-group-sub" id="sub2">
+                            <a href="" class="list-group-item">Subitem 1</a>
+                            <a href="" class="list-group-item">Subitem 2</a>
+                            <a href="" class="list-group-item">Subitem 3</a>
+                        </div>
+                        <a href="#" class="list-group-item">Vestibulum at eros</a>
+                        <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                        <a href="#" class="list-group-item">Cras justo odio</a>
+                        <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+                        <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                        <a href="#" class="list-group-item">Vestibulum at eros</a>
+                        <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+                        @foreach (var item in Model.First().Categorias)
+                        {
+                            if (item.CategoriaPId == 0 || item.CategoriaPId == null)
+                            {
+                                <a href="#" class="list-group-item">@item.NombreCategoria</a>
+                            }else
+                            {
+                                
+                            }
+                        }
+                    </div>
+                </div>
+
+            </div>
+            <!-- End Categories -->
+            <!-- Best Seller -->
+            <div class="col-lg-12 col-md-12 col-sm-6">
+                <div class="no-padding">
+                    <span class="title">BEST SELLER</span>
+                </div>
+                <div class="hero-feature">
+                    <div class="thumbnail text-center">
+                        <a href="detail.html" class="link-p">
+                            <img src="images/product-8.jpg" alt="">
+                        </a>
+                        <div class="caption prod-caption">
+                            <h4><a href="detail.html">Penn State College T-Shirt</a></h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, minima!</p>
+                            <p>
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-default">$ 528.96</a>
+                                    <a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Comprar</a>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-feature hidden-sm">
+                    <div class="thumbnail text-center">
+                        <a href="detail.html" class="link-p">
+                            <img src="images/product-9.jpg" alt="">
+                        </a>
+                        <div class="caption prod-caption">
+                            <h4><a href="detail.html">Ohio State College T-Shirt</a></h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, minima!</p>
+                            <p>
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-default">$ 924.25</a>
+                                    <a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Comprar</a>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Best Seller -->
+
+        </div>
+
+        <div class="clearfix visible-sm"></div>
+
+        <!-- Featured -->
+        <div class="col-lg-9 col-md-9 col-sm-12">
+            <div class="col-lg-12 col-sm-12">
+                <span class="title">TODOS LOS PRODUCTOS</span>
+            </div>
+            @foreach (var item in Model.First().Productos)
+            {
+                var nombreiPrimeroi="noImagen.png";
+                var carpetaImagen = "";
+                if(item.Imagenes.Where(i => i.Producto.ProductoId == item.ProductoId).Count()>0)
+                {
+                    nombreiPrimeroi = item.Imagenes.Where(i => i.ImagenId == item.ImagenPrincipalId).First().nombre;
+                    carpetaImagen = item.Imagenes.Where(i => i.ImagenId == item.ImagenPrincipalId).First().carpeta;
+                }
+                <div class="col-lg-4 col-sm-4 hero-feature text-center">
+                    <div class="thumbnail">
+                        <a href="detail.html" class="link-p">
+
+                            <img src="/Librerias/reduce.aspx?foto=@carpetaImagen/@nombreiPrimeroi&ancho=280 " alt="">
+                        </a>
+                        <div class="caption prod-caption">
+                            <h4><a href="detail.html">@item.NombreProducto</a></h4>
+                            <p>@item.DescripcionProducto</p>
+                            <p>
+                                <div class="btn-group">
+                                    <a href="#" class="btn btn-default">@item.PrecioProducto</a>
+                                    <a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Comprar</a>
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <!-- End Featured -->
+
+        <div class="clearfix visible-sm"></div>
+    </div>
+    </div>

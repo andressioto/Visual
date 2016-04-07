@@ -1,0 +1,61 @@
+﻿@model IEnumerable<CreaTuWeb0_1.Models.Categoria>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="container main-container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Index</h2>
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
+            <p class="text-danger">@ViewBag.error</p>
+            <div class="table-responsive">
+                <table class="table">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NombreCategoria)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DescripcionCategoria)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CategoriaPId)
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NombreCategoria)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DescripcionCategoria)
+                            </td>
+                            <td>
+                                @if (Model.Where(c => c.CategoriaId == item.CategoriaPId).Count() > 0)
+                                {
+                                  @Html.DisplayFor(modelItem => (Model.Where(c => c.CategoriaId == item.CategoriaPId).First().NombreCategoria))
+                                }
+                                else
+                                {
+                                    <span>-</span>
+                                }
+                              
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.CategoriaId }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.CategoriaId }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.CategoriaId })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
